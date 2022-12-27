@@ -1,0 +1,152 @@
+<div style="border:3px solid purple">
+    <h3 style="margin-left: 20px"><%=@discussion.title %></h3>
+    <div style="float:right;margin-right: 20px">
+    <i class="fa-solid fa-envelope"></i>  
+        <span style="color:green"><%= link_to "subscribed",new_discussion_comment_path(@discussion), class: "link" ,style:"color:green"%></span>
+    </div><br><br>
+    <div style="margin-left: 20px;margin-right: 20px">
+        
+        <span style="float:right">  <%= link_to "Greetings",new_discussion_comment_path(@discussion), class: "link",style:"color:green" %>   <i class="fa-solid fa-caret-right",style="margin-left: 40px"></i></span>
+        
+        <span style="float:left">  <i class="fa-solid fa-caret-left"></i> <%= link_to "Hi",new_discussion_comment_path(@discussion), class: "link",style:"color:green" %></span>
+    </div>
+
+
+<br>
+<br>
+<br>
+
+
+<style>
+    .wrapper{
+        position: relative;
+        max-width:1024px;
+        margin:0 auto;
+    }
+    .footer{
+        /* background-color:#9e9898; */
+        min-height:50px;
+    }
+    .sub-foot{
+         float:right;
+        max-width:500px;
+        margin:0 auto;
+    }
+    h5.header-two{
+        float:right;
+        margin:10px 0px;
+        padding:5px 10px;
+        border-right:1px solid black;
+        color:black;
+        
+    }
+    .card1{
+        margin-left: 50px;
+        margin-right: 20px;
+        border:5px solid purple;
+    }
+    .link {
+    text-decoration: none;
+}
+    
+</style>
+<div style="border:3px solid purple;margin-right:20px;margin-left:20px">
+    <div class="card">
+        <div class="card-body">
+                <div style="width:10%;float:left">
+                    <%if @discussion.image.present? %>
+                        <%= image_tag @discussion.image,style: "border-radius:100%;width:70px" %>
+                    <%end%>
+                </div>
+                <div style="width:90%;float:left">
+                <div>
+                <b><%= @discussion.title%></b><br>
+                by <span style="color:green"><%=@discussion.name %></span> - <%= @discussion.created_at%>
+                </div>
+                <div style="margin-top:10px">
+                <%= @discussion.content%>
+                </div>
+                </div>
+        </div>
+        <div class="footer">
+                <div class="wrapper">
+                    <div class="sub-foot">
+                        <h5 class ="header-two"> <span style="color:green"><%= link_to "Edit",new_discussion_comment_path(@discussion), class: "link" ,style:"color:green"%></span></h5>
+                        <h5 class ="header-two"> <span style="color:green"><%= link_to "Reply",new_discussion_comment_path(@discussion), class: "link" ,style:"color:green"%></span></h5>
+                        <h5 class ="header-two"> <span style="color:green"><%= link_to "Delete",new_discussion_comment_path(@discussion), method: :destroy,class: "link" ,style:"color:green"%></span></h5>
+                        <!--<h5 class ="header-two"> <span style="color:green"><%= link_to "subscribed",new_discussion_comment_path(@discussion), class: "link" ,style:"color:green"%></span></h5>
+                        <h5 class ="header-two"><%=link_to "edit",class:"btn btn-success link "%></h5>
+                        <h5 class ="header-two"><%=link_to "delete", class: "link" %></h5>
+                        <h5 class ="header-two"><%=link_to "reply", class: "link" %></h5>-->
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+<%if @discussion.comments.present?%>
+ <div class="card1">
+    <% @comments.each do |comment| %>
+     <div style="border:3px solid purple">
+        <div class="card">
+            <div class="card-body">
+                 <div style="width:10%;float:left">
+                        <% if @discussion.image.present?%>
+                            <%= image_tag @discussion.image,style: "border-radius:100%;width:70px" %>
+                        <%end%>
+                  </div>
+                  <div style="width:90%;float:left">
+                        <div>
+                            <b>RE : <%= @discussion.title%></b><br>
+                            by <span style="color:green"><%= comment.username%></span> - <%= comment.created_at%>
+                        </div> 
+                        <div style="margin-top:10px">
+                            <%= comment.comment%><br>
+                        </div>
+                       
+
+                    </div>
+            </div>
+            <div class="footer">
+                <div class="wrapper">
+                    <div class="sub-foot">
+                        <h5 class ="header-two"> <span style="color:green"><%= link_to "Edit", edit_discussion_comment_path(@discussion,comment), class: "link" ,style:"color:green"%></span></h5>
+                        <h5 class ="header-two"> <span style="color:green"><%= link_to "Reply", new_discussion_comment_reply_path(@discussion,comment), class: "link" ,style:"color:green"%></span></h5>
+                        <h5 class ="header-two"> <span style="color:green"><%= link_to "Delete","/discussions/#{@discussion.id}/comments/#{comment.id}", data:{turbo_method: :delete,turbo_confirm:"Are you sure?"},class: "link" ,style:"color:green"%></span></h5>
+                    </div>
+               </div>
+            </div>
+        </div>
+      </div>
+      
+                
+                    <%comment.replies.each do |reply|%>
+                    <div style="width:10%;float:left">
+                        <% if @discussion.image.present?%>
+                            <%= image_tag @discussion.image,style: "border-radius:100%;width:70px" %>
+                        <%end%>
+                    </div>
+                    <div style="margin-top:10px;margin-left:40px">
+                    <div class="card">
+                        <div class="card-body">
+                    <div>
+                    <b>RE : <%= comment.comment%></b><br>
+                        by <span style="color:green"><%= reply.username%></span> - <%= reply.created_at%>
+                    </div>  
+                    <div style="margin-top:10px">
+                        <%= reply.reply%><br>
+                    </div>
+                       </div>
+                     </div>
+                     </div>
+                    <%end%>
+             
+        
+
+    <% end %>
+ </div>
+
+<%end%>
+
+<div>     
+    <%= link_to "ADD COMMENT",new_discussion_comment_path(@discussion),style:"margin-left:20px"%>
+</div>

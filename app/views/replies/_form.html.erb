@@ -1,0 +1,36 @@
+
+<style>
+button:hover{
+  opacity: 0.7;
+}
+div {
+   margin: auto;
+        width: 25%;
+        padding: 10px;
+        background-color: rgba(242, 244, 245);
+        box-shadow: 1px 5px rgb(220, 221, 222);
+}
+body {
+  background-image: url("img.2.jpg");
+  background-color: #cccccc;
+}
+</style>
+<body>
+<%= form_with url: discussion_comment_replies_path do |form| %>
+ <%=form.hidden_field :comment_id, :value=>@comment.id%>
+    <div>
+        <%= form.label :username %><br>
+        <%= form.text_field :username %>
+        
+    </div>
+
+  <div>
+    <%= form.label :reply %><br>
+    <%= form.text_field :reply %>
+    
+  </div>
+  <div>
+    <p><button><%= form.submit "CREATE REPLY" %></button></p>
+  </div>
+<% end %>
+</body>

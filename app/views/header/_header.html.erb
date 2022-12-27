@@ -1,0 +1,72 @@
+<!--# <nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "HOME", root_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu",style="float:right">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+     
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" onkeyup="mysearch()"placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit" onclick="mysearch()">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<script>
+  function mysearch() {
+
+    const input=document.querySelector(".filters_search_textbox").value.toUpperCase();
+
+   
+
+    const cardContainer=document.getElementById("cards_container");
+
+    const cards= cardContainer.getElementsByClassName("card");
+
+    for(i=0; i<cards.length; i++){
+
+      let title;
+
+      let description;
+
+      title=cards[i].querySelector(".container_title").innerHTML.toUpperCase().indexOf(input)>-1
+
+      description=cards[i].querySelector(".container_description").innerHTML.toUpperCase().indexOf(input)>-1
+
+      if(title || description ){
+
+        cards[i].parentElement.style.display="";
+
+      }
+
+    else{
+
+        cards[i].parentElement.style.display="none";
+
+      }
+
+    }
+
+}
+</script> -->

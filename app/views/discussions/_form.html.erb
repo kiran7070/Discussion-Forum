@@ -1,0 +1,60 @@
+<%= form_with model: discussion do |form| %>
+<style>
+button:hover{
+  opacity: 0.7;
+}
+div {
+   margin: auto;
+        width: 25%;
+        padding: 10px;
+        background-color: rgba(242, 244, 245);
+        box-shadow: 1px 5px rgb(220, 221, 222);
+}
+body {
+  background-image: url("img.2.jpg");
+  background-color: #cccccc;
+}
+</style>
+<body>
+  <div>
+    <%= form.label :name %><br>
+    <%= form.text_field :name %>
+    <% discussion.errors.full_messages_for(:name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+    <% discussion.errors.full_messages_for(:title).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :content %><br>
+    <%= form.text_area :content %>
+    <% discussion.errors.full_messages_for(:content).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div>
+    <%= form.label :image %><br>
+    <%= form.text_field :image %>
+    <% discussion.errors.full_messages_for(:image).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+
+    
+
+  
+  
+  <div>
+    <p><button><%= form.submit "CREATE ARTICLE" %></button></p>
+  </div>
+<% end %>
+</body>

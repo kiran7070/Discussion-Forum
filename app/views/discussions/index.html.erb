@@ -1,0 +1,105 @@
+<nav class="navbar navbar-expand-lg bg-light fixed-top">
+  <div class="container-fluid">
+  
+    <span style="border-right:2px solid grey;margin-left:30px"><a class="navbar-brand" ><i class="fa-solid fa-layer-group"></i></a></span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "HOME", root_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item">
+         <%= link_to "ADD ARTICLE", new_discussion_path, class: "nav-link active" %>
+        </li>
+        <li class="nav-item dropdown",style="float:right">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu",style="float:right">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+     
+      </ul>
+      <form class="d-flex" role="search" >
+        <input class="form-control me-2 filters_search_textbox" type="search" onkeyup="mysearch()"placeholder="Search" aria-label="Search" style="float:right">
+        <%# <button class="btn btn-outline-success filters_search_textbox" type="submit" onclick="mysearch()">Search</button> %>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div  id="cards-container" style="margin-top:60px">
+<% @article.each do |article1| %>
+    <div class="card rounded" style="margin: 0rem 1.5rem 0rem 1.5rem" onclick="abc(this)" >
+        
+        <div class="card-header" style="display: flex;" > 
+         <div style="width: 15%;float: left;text-align: center ; padding: 10px 0px;">            
+           <%= button_to "  #{article1.likes}   " ,like_path(article1),class:"fa-solid fa-thumbs-up " , style: "padding: 1rem 2rem 1rem 2rem;background-color:DeepSkyBlue;border:none" %>
+        </div>
+         <div class="text-truncate" style="width: 55%;float: left;padding: 10px 0px; font-size: 0.8em;" >  
+              <b><span class="article_title"><%= article1.title%></span></b><br>
+                <span class="article_container"><%= article1.content%></span>
+        </div>
+        <div  style="width: 15%;float: left;text-align: center ; padding: 10px 0px;">
+            <%= button_to "     #{article1.comments.count}    " ,discussion_comments_path(article1),class:"fa-solid fa-comment " , style: "padding: 1rem 2rem 1rem 2rem ;background-color:white;border-style: dotted",method: :get%>
+        </div>
+        <div  style="width: 15%;float: left;text-align: center ; padding: 10px 0px">
+            <% if article1.pinned == false %>
+              <%= button_to "      pin " ,pin_path(article1), class:"fa-solid fa-thumbtack", style: "padding: 1rem 2rem 1rem 2rem;background-color:white ",method: :get%>
+            <% else %>
+              <%= button_to "      unpin " ,unpin_path(article1),class:"fa-solid fa-link-slash ", style: "padding: 1rem 2rem 1rem 2rem;background-color:white",method: :get%>
+            <%end%>
+        </div>
+         <%= link_to "", discussion_comments_path(article1)%>
+        </div>    
+    </div>
+<% end %>
+</div>
+<br>
+
+
+
+ 
+<script>
+
+    function abc(element){
+
+        a = element.getElementsByTagName('a')[0].href
+        window.location.href = a
+    };
+  function mysearch() {
+    const input=document.querySelector(".filters_search_textbox").value.toUpperCase();
+    const cards= document.getElementsByClassName("article_title");
+    
+     
+
+    for(i=0; i<cards.length; i++){
+
+      let title;
+
+      let content;
+
+      title=cards[i].innerHTML.toUpperCase().indexOf(input)>-1
+
+      if(title){
+
+        cards[i].offsetParent.style.display="";
+
+      }
+
+    else{
+
+        cards[i].offsetParent.style.display="none";
+
+      }
+
+    }
+
+}
+</script>
