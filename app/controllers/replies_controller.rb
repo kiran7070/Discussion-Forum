@@ -4,15 +4,14 @@ class RepliesController < ApplicationController
     @reply = @comment.replies
   end
 
-  def edit
-    @comment = Comment.find(params[:comment_id])
-    @reply = @comment.replies.find(params[:id])
+  # def edit
+  #   @comment = Comment.find(params[:comment_id])
+  #   @reply = @comment.replies.find(params[:id])
 
-  end
+  # end
 
   def new
      @comment = Comment.find(params[:comment_id])
-  
     @reply = Reply.new
   end
 

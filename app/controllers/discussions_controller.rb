@@ -1,7 +1,7 @@
 class DiscussionsController < ApplicationController
   def index
-    @article = Discussion.where(pinned: true) + Discussion.where(pinned: false)
-
+   # @article = Discussion.where(pinned: true) + Discussion.where(pinned: false)
+    @article = Discussion.order("pinned DESC")
   end
 
   def new
@@ -11,7 +11,7 @@ class DiscussionsController < ApplicationController
   def create
     @article = Discussion.new(article_params)
     if @article.save
-      redirect_to  discussions_path(@article)
+      redirect_to  discussions_path
       flash[:notice] = "Successfully Created Article"
     else
       render :new, status: :unprocessable_entity
@@ -57,7 +57,7 @@ class DiscussionsController < ApplicationController
     #binding.pry
     @article.likes+=1
     @article.save
-    redirect_to request.referer
+    redirect_to discussions_path
   end
 
   def show

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
  
   root "discussions#index"
   post "/discussions/:id/like", to: "discussions#like", as: "like"
+  get "/discussions/:discussion_id/comments",to:"comments#index"
   resources :discussions
   resources :discussions do
     resources :comments do
